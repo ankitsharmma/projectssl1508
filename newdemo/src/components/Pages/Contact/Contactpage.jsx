@@ -1,5 +1,5 @@
 import React from 'react'
-import ContactBanner from './contactbaneer';
+import ContactBanner from './contactBaneer';
 import ContactCards from './Contactcard';
 import ContactForm from './Contactform';
 import Googlemap from './Googlemap';
