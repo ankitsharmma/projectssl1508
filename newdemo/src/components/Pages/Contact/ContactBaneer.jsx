@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const Contactbanner = () => {
+const ContactBanner = () => {
   const headingRef = useRef(null);
 
   useEffect(() => {
