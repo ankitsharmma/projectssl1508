@@ -7,16 +7,8 @@ function Studentdetailspage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-
   const [editStudent, setEditStudent] = useState(null);
   const [formData, setFormData] = useState({});
-
-  // Base API paths (using Vite proxy `/auth`)
-  const Url_GetUser = "/auth/user";
-  const Url_DeleteUser = "/auth/user/email";
-  const Url_UpdateUser = "/auth/user/email";
-  const Url_Signup = "/auth/signup";
-
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [signupInfo, setSignupInfo] = useState({
     name: "",
@@ -27,14 +19,21 @@ function Studentdetailspage() {
     confirmPassword: "",
   });
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // API endpoints (Vite proxy `/auth`)
+  const Url_GetUser = "/auth/user";
+  const Url_DeleteUser = "/auth/user/email";
+  const Url_UpdateUser = "/auth/user/email";
+  const Url_Signup = "/auth/signup";
 
+  // Fetch all users
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(Url_GetUser);
+      const res = await fetch(` ${Url_GetUser}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to fetch users`);
       const json = await res.json();
       setData(json.users || []);
     } catch (err) {
@@ -44,16 +43,24 @@ function Studentdetailspage() {
     }
   };
 
+  // Delete user
   const handleDelete = async (email) => {
     if (!window.confirm(`Are you sure you want to delete ${email}?`)) return;
-    await fetch(Url_DeleteUser, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    setData((prev) => prev.filter((s) => s.email !== email));
+    try {
+      const res = await fetch(` ${Url_DeleteUser}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to delete user`);
+      setData((prev) => prev.filter((s) => s.email !== email));
+      alert("User deleted successfully");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
+  // Open edit modal
   const handleEdit = (email) => {
     const student = data.find((s) => s.email === email);
     if (student) {
@@ -62,23 +69,66 @@ function Studentdetailspage() {
     }
   };
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+  // Update user
   const handleFormSubmit = async () => {
-    await fetch(Url_UpdateUser, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    setData((prev) =>
-      prev.map((s) => (s.email === editStudent.email ? { ...s, ...formData } : s))
-    );
-    setEditStudent(null);
+    try {
+      const res = await fetch(` ${Url_UpdateUser}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to update user`);
+      setData((prev) =>
+        prev.map((s) =>
+          s.email === editStudent.email ? { ...s, ...formData } : s
+        )
+      );
+      alert("User updated successfully");
+      setEditStudent(null);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
+  // Create user
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const { name, email, phoneNumber, address, password, confirmPassword } =
+      signupInfo;
+
+    if (!name || !email || !phoneNumber || !address || !password || !confirmPassword) {
+      alert("All fields are required");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await fetch(` ${Url_Signup}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signupInfo),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to create user`);
+      alert("User created successfully");
+      setShowSignupModal(false);
+      setSignupInfo({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        address: "",
+        password: "",
+        confirmPassword: "",
+      });
+      fetchData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // PDF export
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.text("Student Details", 14, 15);
@@ -98,34 +148,9 @@ function Studentdetailspage() {
     doc.save("student_details.pdf");
   };
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    const { name, email, phoneNumber, address, password, confirmPassword } = signupInfo;
-    if (!name || !email || !phoneNumber || !address || !password || !confirmPassword) {
-      alert("All fields required");
-      return;
-    }
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
-
-    await fetch(Url_Signup, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(signupInfo),
-    });
-
-    setShowSignupModal(false);
-    setSignupInfo({
-      name: "",
-      email: "",
-      phoneNumber: "",
-      address: "",
-      password: "",
-      confirmPassword: "",
-    });
-    fetchData();
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const filteredData = data.filter(
@@ -134,13 +159,19 @@ function Studentdetailspage() {
       s.email?.toLowerCase().includes(search.toLowerCase())
   );
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   if (loading) return <p>Loading…</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
     <div className="container mx-auto p-4">
+      {/* Header */}
       <h1 className="text-2xl font-bold mb-4">Student Details</h1>
 
+      {/* Search & Actions */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mb-4">
         <input
           value={search}
@@ -164,7 +195,7 @@ function Studentdetailspage() {
         </div>
       </div>
 
-      {/* Desktop Table */}
+      {/* Table for Desktop */}
       <div className="hidden md:block overflow-x-auto rounded shadow">
         <table className="min-w-full bg-white">
           <thead className="bg-gray-100">
@@ -276,8 +307,18 @@ function Studentdetailspage() {
               />
             </div>
             <div className="flex justify-end gap-2 mt-4">
-              <button onClick={() => setEditStudent(null)} className="px-4 py-2 bg-gray-400 text-white rounded">Cancel</button>
-              <button onClick={handleFormSubmit} className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
+              <button
+                onClick={() => setEditStudent(null)}
+                className="px-4 py-2 bg-gray-400 text-white rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleFormSubmit}
+                className="px-4 py-2 bg-green-600 text-white rounded"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
@@ -294,48 +335,76 @@ function Studentdetailspage() {
             <input
               name="name"
               value={signupInfo.name}
-              onChange={(e) => setSignupInfo({ ...signupInfo, name: e.target.value })}
+              onChange={(e) =>
+                setSignupInfo({ ...signupInfo, name: e.target.value })
+              }
               placeholder="Name"
               className="w-full border p-2 rounded"
             />
             <input
               name="email"
               value={signupInfo.email}
-              onChange={(e) => setSignupInfo({ ...signupInfo, email: e.target.value })}
+              onChange={(e) =>
+                setSignupInfo({ ...signupInfo, email: e.target.value })
+              }
               placeholder="Email"
               className="w-full border p-2 rounded"
             />
             <input
               name="phoneNumber"
               value={signupInfo.phoneNumber}
-              onChange={(e) => setSignupInfo({ ...signupInfo, phoneNumber: e.target.value })}
+              onChange={(e) =>
+                setSignupInfo({ ...signupInfo, phoneNumber: e.target.value })
+              }
               placeholder="Phone"
               className="w-full border p-2 rounded"
             />
             <input
               name="address"
               value={signupInfo.address}
-              onChange={(e) => setSignupInfo({ ...signupInfo, address: e.target.value })}
+              onChange={(e) =>
+                setSignupInfo({ ...signupInfo, address: e.target.value })
+              }
               placeholder="Address"
               className="w-full border p-2 rounded"
             />
             <input
               name="password"
+              type="password"
               value={signupInfo.password}
-              onChange={(e) => setSignupInfo({ ...signupInfo, password: e.target.value })}
+              onChange={(e) =>
+                setSignupInfo({ ...signupInfo, password: e.target.value })
+              }
               placeholder="Password"
               className="w-full border p-2 rounded"
             />
             <input
               name="confirmPassword"
+              type="password"
               value={signupInfo.confirmPassword}
-              onChange={(e) => setSignupInfo({ ...signupInfo, confirmPassword: e.target.value })}
+              onChange={(e) =>
+                setSignupInfo({
+                  ...signupInfo,
+                  confirmPassword: e.target.value,
+                })
+              }
               placeholder="Confirm Password"
               className="w-full border p-2 rounded"
             />
             <div className="flex justify-end gap-2">
-              <button type="button" onClick={() => setShowSignupModal(false)} className="px-4 py-2 bg-gray-400 text-white rounded">Cancel</button>
-              <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Create</button>
+              <button
+                type="button"
+                onClick={() => setShowSignupModal(false)}
+                className="px-4 py-2 bg-gray-400 text-white rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-green-600 text-white rounded"
+              >
+                Create
+              </button>
             </div>
           </form>
         </div>

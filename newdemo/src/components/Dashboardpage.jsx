@@ -12,7 +12,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchFolders = async () => {
       try {
-        const res = await fetch(Url_folders);
+        const res = await fetch(`${Url_folders}`);
         if (!res.ok) throw new Error("Failed to fetch folders");
         const json = await res.json();
 

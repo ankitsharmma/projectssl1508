@@ -8,7 +8,7 @@ const VideoGallery = () => {
   const URL_FETCH = "/auth/videos"; // <-- Change if your backend route differs
 
   useEffect(() => {
-    fetch(URL_FETCH, { method: "GET" })
+    fetch(` ${URL_FETCH}`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched videos:", data);
