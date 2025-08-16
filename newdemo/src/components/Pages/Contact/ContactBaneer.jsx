@@ -47,4 +47,4 @@ const ContactBanner = () => {
   );
 };
 
-export default Contactbanner;
+export default  ContactBanner;
