@@ -5,7 +5,7 @@ const VideoGallery = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   // API endpoint for fetching videos
-  const URL_FETCH = "https://api.sslcloudservices.com/auth/videos"; // <-- Change if your backend route differs
+  const URL_FETCH = "https://api.sslcloudservices.com/auth/uploadvideo"; // <-- Change if your backend route differs
 
   useEffect(() => {
     fetch(URL_FETCH ,
