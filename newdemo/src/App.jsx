@@ -100,11 +100,7 @@ function App() {
       <YouTubePlaylist/>
     </PrivateRoute>
   )
-},
-  {
-     path: "/batch/SSLCLOUDBATCH-19",
-     element :<VideoGallery/>
-  }
+}
 
           
             
@@ -116,7 +112,11 @@ function App() {
       {
 path: "/DashboardAdmin",
             element: <DashboardAdmin/>
-      }
+      },
+      {
+     path: "/batch/SSLCLOUDBATCH-19",
+     element :<VideoGallery/>
+  }
     
     ]
   );
