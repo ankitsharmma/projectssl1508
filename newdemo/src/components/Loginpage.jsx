@@ -20,7 +20,7 @@ const Login = () => {
   });
 
   // Set your backend login API URL here
-  const URL_Login = "/auth/login"; // Change to full URL if backend is on another domain
+  const URL_Login = "https://api.sslcloudservices.com/auth/login"; // Change to full URL if backend is on another domain
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +36,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch(  `${URL_Login}`,    {
+      const response = await fetch( URL_Login,    {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginInfo)
