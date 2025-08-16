@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Cloud, FolderOpen } from "lucide-react";
+import { Cloud, FolderOpen, Home } from "lucide-react"; // added Home icon
 import watermark from "../assets/ssl1.png";
 
 const Dashboard = () => {
@@ -8,11 +8,11 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   // Fetch folders from backend
-  const Url_folders = "https://api.sslcloudservices.com/auth/folders";
+  const Url_folders = "/auth/folders";
   useEffect(() => {
     const fetchFolders = async () => {
       try {
-        const res = await fetch(Url_folders);
+        const res = await fetch(`${Url_folders}`);
         if (!res.ok) throw new Error("Failed to fetch folders");
         const json = await res.json();
 
@@ -41,13 +41,26 @@ const Dashboard = () => {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 bg-gradient-to-r  from-purple-600 to-indigo-600 py-4 px-2 mt-20 shadow-md">
-        <div className="flex items-center justify-center gap-3 flex-wrap text-center">
+      <header className="relative z-10 bg-gradient-to-r from-purple-600 to-indigo-600 py-3 px-4 shadow-md flex items-center justify-between">
+        {/* Back to Home Button (Left Side) */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 bg-white text-purple-600 font-semibold px-3 py-2 rounded-xl shadow-md hover:bg-purple-100 transition"
+        >
+          <Home className="w-5 h-5" />
+          Home
+        </Link>
+
+        {/* Center Title */}
+        <div className="flex items-center gap-2 text-center mx-auto">
           <Cloud className="w-7 h-7 text-white" />
           <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white">
             SSL Cloud Folders
           </h1>
         </div>
+
+        {/* Empty div for spacing (keeps title centered) */}
+        <div className="w-[80px]"></div>
       </header>
 
       {/* Main content */}
@@ -57,7 +70,6 @@ const Dashboard = () => {
 
           <div className="grid gap-6 sm:gap-8 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full max-w-7xl">
             {folders.map((folder, index) => {
-              // If folder is object → get folder.name, else use string
               const folderName =
                 typeof folder === "object" && folder !== null
                   ? folder.name
