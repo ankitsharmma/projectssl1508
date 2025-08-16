@@ -1,8 +1,9 @@
 import React from 'react'
-import ContactBanner from './contactBaneer';
+
 import ContactCards from './Contactcard';
 import ContactForm from './Contactform';
 import Googlemap from './Googlemap';
+import ContactBanner from './Contactbaneer';
 
 function Contactpage() {
   return (
