@@ -93,14 +93,7 @@ function App() {
             element: <Login/>
           }
           ,
-          {
-  path: "/dashboard",
-  element: (
-    <PrivateRoute>
-      <YouTubePlaylist/>
-    </PrivateRoute>
-  )
-}
+        
 
           
             
@@ -116,7 +109,15 @@ path: "/DashboardAdmin",
       {
      path: "/batch/SSLCLOUDBATCH-19",
      element :<VideoGallery/>
-  }
+  },
+        {
+  path: "/dashboard",
+  element: (
+    <PrivateRoute>
+      <YouTubePlaylist/>
+    </PrivateRoute>
+  )
+}
     
     ]
   );
