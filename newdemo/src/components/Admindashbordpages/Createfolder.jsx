@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 
  // Vite proxy will forward this to https://api.sslcloudservices.com/auth
 
-const Url_getfolders = "/auth/folders";
-const Url_createfolder = "/auth/foldercreate";
-const Url_deletefolder = "/auth/folders";
-const Url_updatefolder = "/auth/folders";
+const Url_getfolders = "https://api.sslcloudservices.com/auth/folders";
+const Url_createfolder = "https://api.sslcloudservices.com/auth/foldercreate";
+const Url_deletefolder = "https://api.sslcloudservices.com/auth/folders";
+const Url_updatefolder = "https://api.sslcloudservices.com/auth/folders";
 
 const FolderManager = () => {
   const [folderName, setFolderName] = useState("");
@@ -16,7 +16,7 @@ const FolderManager = () => {
 
   const fetchFolders = async () => {
     try {
-      const res = await fetch(`${Url_getfolders}`);
+      const res = await fetch(Url_getfolders);
       if (res.ok) {
         const data = await res.json();
         setFolders(data.folders || []);
@@ -31,7 +31,7 @@ const FolderManager = () => {
   const createFolder = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${Url_createfolder}`, {
+      const res = await fetch(Url_createfolder, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: folderName }),
@@ -53,7 +53,7 @@ const FolderManager = () => {
     if (!window.confirm(`Delete folder "${name}"?`)) return;
 
     try {
-      const res = await fetch(`${Url_deletefolder}`, {
+      const res = await fetch(Url_deletefolder, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name }),
@@ -79,7 +79,7 @@ const FolderManager = () => {
   const updateFolder = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`${Url_updatefolder}`, {
+      const res = await fetch(Url_updatefolder, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
