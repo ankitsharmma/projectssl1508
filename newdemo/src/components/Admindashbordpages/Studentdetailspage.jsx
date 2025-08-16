@@ -20,16 +20,16 @@ function Studentdetailspage() {
   });
 
   // API endpoints (Vite proxy `/auth`)
-  const Url_GetUser = "/auth/user";
-  const Url_DeleteUser = "/auth/user/email";
-  const Url_UpdateUser = "/auth/user/email";
-  const Url_Signup = "/auth/signup";
+  const Url_GetUser = "https://api.sslcloudservices.com/auth/user";
+  const Url_DeleteUser = "https://api.sslcloudservices.com/auth/user/email";
+  const Url_UpdateUser = "https://api.sslcloudservices.com/auth/user/email";
+  const Url_Signup = "https://api.sslcloudservices.com/auth/signup";
 
   // Fetch all users
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(` ${Url_GetUser}`, {
+      const res = await fetch( Url_GetUser, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -47,7 +47,7 @@ function Studentdetailspage() {
   const handleDelete = async (email) => {
     if (!window.confirm(`Are you sure you want to delete ${email}?`)) return;
     try {
-      const res = await fetch(` ${Url_DeleteUser}`, {
+      const res = await fetch( Url_DeleteUser, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -72,7 +72,7 @@ function Studentdetailspage() {
   // Update user
   const handleFormSubmit = async () => {
     try {
-      const res = await fetch(` ${Url_UpdateUser}`, {
+      const res = await fetch( Url_UpdateUser, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -106,7 +106,7 @@ function Studentdetailspage() {
     }
 
     try {
-      const res = await fetch(` ${Url_Signup}`, {
+      const res = await fetch( Url_Signup , {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signupInfo),
