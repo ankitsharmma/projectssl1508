@@ -8,11 +8,11 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   // Fetch folders from backend
-  const Url_folders = "/auth/folders";
+  const Url_folders = "https://api.sslcloudservices.com/auth/folders";
   useEffect(() => {
     const fetchFolders = async () => {
       try {
-        const res = await fetch(`${Url_folders}`);
+        const res = await fetch(Url_folders);
         if (!res.ok) throw new Error("Failed to fetch folders");
         const json = await res.json();
 
