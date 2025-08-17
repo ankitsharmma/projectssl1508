@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const VideoUploadForm = () => {
-  const API_BASE_URL = "/auth/uploadvideo"; // Uses Vite proxy: points to https://api.sslcloudservices.com/auth
+  const API_BASE_URL = "https://api.sslcloudservices.com/auth/uploadvideo"; // Uses Vite proxy: points to https://api.sslcloudservices.com/auth
   const [formData, setFormData] = useState({
     Id: "",
     Title: "",
