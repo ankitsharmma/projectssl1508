@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 
+<<<<<<< HEAD
 const  Dashboardgraph = () => {
   // ✅ Set API base URL here
   const API_BASE = "/auth/folders"
   ; // works with Vite proxy in development
   const API_BASE_URL = "/auth/user";
+=======
+const Dashboardgraph = () => {
+  // ✅ API endpoints
+  const API_BASE_FOLDERS = "https://api.sslcloudservices.com/auth/folders"; // For folders count
+  const API_BASE_USERS = "https://api.sslcloudservices.com/auth/user"; // For users count
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
 
   const [studentCount, setStudentCount] = useState(0);
   const [folderCount, setFolderCount] = useState(0);
@@ -13,7 +20,11 @@ const  Dashboardgraph = () => {
 
   // Fetch total students
   useEffect(() => {
+<<<<<<< HEAD
     fetch(API_BASE_URL)
+=======
+    fetch( API_BASE_USERS , { method: "GET" })
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
       .then((res) => res.json())
       .then((data) => {
         setStudentCount(data.users ? data.users.length : 0);
@@ -27,7 +38,11 @@ const  Dashboardgraph = () => {
 
   // Fetch total folders
   useEffect(() => {
+<<<<<<< HEAD
     fetch( API_BASE)
+=======
+    fetch( API_BASE_FOLDERS , { method: "GET" })
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
       .then((res) => res.json())
       .then((data) => {
         setFolderCount(

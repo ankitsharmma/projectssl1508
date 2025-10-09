@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 const VideoUploadForm = () => {
+<<<<<<< HEAD
   const [showModal, setShowModal] = useState(false);
   const [videos, setVideos] = useState([]);
+=======
+  const API_BASE_URL = "https://api.sslcloudservices.com/auth/uploadvideo"; // Uses Vite proxy: points to https://api.sslcloudservices.com/auth
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
   const [formData, setFormData] = useState({
     Id: "",
     Title: "",

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import {
   Video,
   Film,
@@ -13,6 +14,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
+=======
+import { Link } from "react-router-dom";
+import { Cloud, FolderOpen, Home } from "lucide-react"; // added Home icon
+import watermark from "../assets/ssl1.png";
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
 
 const icons = [Video, Film, Camera, PlayCircle, Tv, Headphones, Mic, Music];
 
@@ -26,6 +32,7 @@ const VideoGallery = () => {
   const [loadingVideos, setLoadingVideos] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
+<<<<<<< HEAD
   const Video_url = "/auth/videos";
 
   useEffect(() => {
@@ -33,15 +40,34 @@ const VideoGallery = () => {
   }, []);
 
   // Fetch folders
+=======
+  // Fetch folders from backend
+  const Url_folders = "https://api.sslcloudservices.com/auth/folders";
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
   useEffect(() => {
     const fetchFolders = async () => {
       setLoadingFolders(true);
       try {
+<<<<<<< HEAD
         const res = await fetch( video_url );
         const data = await res.json();
         if (Array.isArray(data.folders)) setFolders(data.folders);
       } catch (error) {
         console.error("Failed to fetch folders:", error);
+=======
+        const res = await fetch(Url_folders);
+        if (!res.ok) throw new Error("Failed to fetch folders");
+        const json = await res.json();
+
+        // Handle both formats: array of strings OR array of objects
+        if (Array.isArray(json.folders)) {
+          setFolders(json.folders);
+        } else {
+          setFolders([]);
+        }
+      } catch (err) {
+        setError(err.message);
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
       }
       setLoadingFolders(false);
     };
@@ -101,6 +127,7 @@ const VideoGallery = () => {
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* Back to Home Button */}
       <div className="flex justify-start mb-8">
         <button
@@ -110,6 +137,30 @@ const VideoGallery = () => {
           <ArrowLeft className="w-5 h-5" /> Back to Home
         </button>
       </div>
+=======
+      {/* Header */}
+      <header className="relative z-10 bg-gradient-to-r from-purple-600 to-indigo-600 py-3 px-4 shadow-md flex items-center justify-between">
+        {/* Back to Home Button (Left Side) */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 bg-white text-purple-600 font-semibold px-3 py-2 rounded-xl shadow-md hover:bg-purple-100 transition"
+        >
+          <Home className="w-5 h-5" />
+          Home
+        </Link>
+
+        {/* Center Title */}
+        <div className="flex items-center gap-2 text-center mx-auto">
+          <Cloud className="w-7 h-7 text-white" />
+          <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white">
+            SSL Cloud Folders
+          </h1>
+        </div>
+
+        {/* Empty div for spacing (keeps title centered) */}
+        <div className="w-[80px]"></div>
+      </header>
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
 
       {/* Folder Selector */}
       <div className="flex justify-center mb-12">
@@ -131,6 +182,7 @@ const VideoGallery = () => {
         )}
       </div>
 
+<<<<<<< HEAD
       {/* Video Cards */}
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {selectedFolder === "All" ? (
@@ -174,6 +226,14 @@ const VideoGallery = () => {
           })
         )}
       </div>
+=======
+          <div className="grid gap-6 sm:gap-8 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full max-w-7xl">
+            {folders.map((folder, index) => {
+              const folderName =
+                typeof folder === "object" && folder !== null
+                  ? folder.name
+                  : folder;
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
 
       {/* Video Modal */}
       {selectedVideo && (

@@ -27,14 +27,30 @@ function Studentdetailspage() {
     confirmPassword: "",
   });
 
+<<<<<<< HEAD
   useEffect(() => {
     fetchData();
   }, []);
+=======
+  // API endpoints (Vite proxy `/auth`)
+  const Url_GetUser = "https://api.sslcloudservices.com/auth/user";
+  const Url_DeleteUser = "https://api.sslcloudservices.com/auth/user/email";
+  const Url_UpdateUser = "https://api.sslcloudservices.com/auth/user/email";
+  const Url_Signup = "https://api.sslcloudservices.com/auth/signup";
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
 
   const fetchData = async () => {
     setLoading(true);
     try {
+<<<<<<< HEAD
       const res = await fetch( Url_GetUser );
+=======
+      const res = await fetch( Url_GetUser, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to fetch users`);
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
       const json = await res.json();
       setData(json.users || []);
     } catch (err) {
@@ -46,12 +62,27 @@ function Studentdetailspage() {
 
   const handleDelete = async (email) => {
     if (!window.confirm(`Are you sure you want to delete ${email}?`)) return;
+<<<<<<< HEAD
     await fetch(Url_DeleteUser, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
     });
     setData((prev) => prev.filter((s) => s.email !== email));
+=======
+    try {
+      const res = await fetch( Url_DeleteUser, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to delete user`);
+      setData((prev) => prev.filter((s) => s.email !== email));
+      alert("User deleted successfully");
+    } catch (err) {
+      alert(err.message);
+    }
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
   };
 
   const handleEdit = (email) => {
@@ -68,6 +99,7 @@ function Studentdetailspage() {
   };
 
   const handleFormSubmit = async () => {
+<<<<<<< HEAD
     await fetch(Url_UpdateUser, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -79,6 +111,66 @@ function Studentdetailspage() {
     setEditStudent(null);
   };
 
+=======
+    try {
+      const res = await fetch( Url_UpdateUser, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to update user`);
+      setData((prev) =>
+        prev.map((s) =>
+          s.email === editStudent.email ? { ...s, ...formData } : s
+        )
+      );
+      alert("User updated successfully");
+      setEditStudent(null);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // Create user
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const { name, email, phoneNumber, address, password, confirmPassword } =
+      signupInfo;
+
+    if (!name || !email || !phoneNumber || !address || !password || !confirmPassword) {
+      alert("All fields are required");
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await fetch( Url_Signup , {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signupInfo),
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}: Failed to create user`);
+      alert("User created successfully");
+      setShowSignupModal(false);
+      setSignupInfo({
+        name: "",
+        email: "",
+        phoneNumber: "",
+        address: "",
+        password: "",
+        confirmPassword: "",
+      });
+      fetchData();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // PDF export
+>>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.text("Student Details", 14, 15);
