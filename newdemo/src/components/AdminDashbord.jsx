@@ -1,125 +1,72 @@
 import React, { useState } from "react";
-import Studentdetailspage from "./Admindashbordpages/Studentdetailspage";
+import { useNavigate } from "react-router-dom"; // <--- import useNavigate
+import {
+  Home,
+  UserPlus,
+  BookOpen,
+  Users,
+  ClipboardList,
+  Video,
+  Folder,
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
+import Studentdetailspage from "./Admindashbordpages/Studentdetailspage";
 import TotalStudentBox from "./Admindashbordpages/Dashboardgraph";
 import FolderForm from "./Admindashbordpages/Createfolder";
 import VideoUploadForm from "./Admindashbordpages/Uplodevideo";
+import InstructorForm from "./Admindashbordpages/InstructorForm";
+import BestSellingCourses from "./Admindashbordpages/Bestsellingcources";
+import CreateAdmin from "./Admindashbordpages/createadmin";
+import NewSellingCourses from "./Admindashbordpages/Newestsellingcources";
 
 const DashboardAdmin = () => {
+  const navigate = useNavigate( ); // <--- hook
+
   const [active, setActive] = useState("dashboard");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [filter, setFilter] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // States for forms
-  const [batchName, setBatchName] = useState("");
-  const [folderName, setFolderName] = useState("");
-  const [videoTitle, setVideoTitle] = useState("");
-  const [videoFile, setVideoFile] = useState(null);
-
-  const [students, setStudents] = useState([
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      phoneNumber: "1234567890",
-      address: "123 Main St",
-      password: "******",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      phoneNumber: "9876543210",
-      address: "456 Park Ave",
-      password: "******",
-    },
-    {
-      id: 3,
-      name: "Alice Johnson",
-      email: "alice@example.com",
-      phoneNumber: "5551234567",
-      address: "789 Elm Rd",
-      password: "******",
-    },
-  ]);
-
-  const handleDelete = (id) => {
-    const confirmed = window.confirm("Are you sure you want to delete?");
-    if (confirmed) {
-      setStudents(students.filter((student) => student.id !== id));
-    }
-  };
-
-  const handleEdit = (id) => {
-    alert(`Edit functionality for student ID: ${id}`);
-  };
-
-  const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  // Form Handlers
-  const handleBatchCreate = (e) => {
-    e.preventDefault();
-    alert(`Batch "${batchName}" created!`);
-    setBatchName("");
-  };
-
-  const handleFolderCreate = (e) => {
-    e.preventDefault();
-    alert(`Folder "${folderName}" created!`);
-    setFolderName("");
-  };
-
-  const handleVideoUpload = (e) => {
-    e.preventDefault();
-    if (!videoFile) {
-      alert("Please select a video file");
-      return;
-    }
-    alert(`Video "${videoTitle}" uploaded!`);
-    setVideoTitle("");
-    setVideoFile(null);
-  };
+  const menuItems = [
+    { key: "dashboard", label: "Dashboard", icon: <Home size={24} /> },
+    { key: "addAdmin", label: "Add Admin", icon: <UserPlus size={24} /> },
+    { key: "bestSelling", label: "Best Selling", icon: <BookOpen size={24} /> },
+    { key: "Newselling", label: "New Selling", icon: <BookOpen size={24} /> },
+    { key: "students", label: "Students", icon: <Users size={24} /> },
+    { key: "instructor", label: "Create Instructor", icon: <ClipboardList size={24} /> },
+    { key: "createFolder", label: "Create Folder", icon: <Folder size={24} /> },
+    { key: "uploadVideo", label: "Upload Video", icon: <Video size={24} /> },
+  ];
 
   const renderContent = () => {
     switch (active) {
       case "dashboard":
-        return (
-          <>
-            <TotalStudentBox />
-          </>
-        );
-      case "inbox":
-        return <div className="p-6">📩 Inbox Content</div>;
-      case "courses":
-        return <div className="p-6">📚 Courses Details</div>;
+        return <TotalStudentBox />;
+      case "addAdmin":
+        return <CreateAdmin />;
+      case "bestSelling":
+        return <BestSellingCourses />;
+        case "Newselling":
+        return <NewSellingCourses/>;
       case "students":
-        return (
-          <>
-            <Studentdetailspage />
-          </>
-        );
-      case "createBatch":
-        return (<>
-
-        </>
-        )
-          
+        return <Studentdetailspage />;
+      case "instructor":
+        return <InstructorForm />;
       case "createFolder":
-        return (
-          <>
-          <FolderForm/>
-          
-          </>
-        );
+        return <FolderForm />;
       case "uploadVideo":
-        return (
-          <>
-          <VideoUploadForm/>
-          
-          </>
-        );
+        return <VideoUploadForm />;
+      default:
+        return <div className="p-6">Select an option</div>;
+    }
+  };
+
+  const handleLogout = () => {
+    if (window.confirm("Are you sure you want to logout?")) {
+      // Clear any auth tokens if needed
+      localStorage.removeItem("token"); // example if token is stored
+      navigate("/Institute-login"); // redirect to login page
     }
   };
 
@@ -127,60 +74,58 @@ const DashboardAdmin = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <aside
-        className={`fixed md:static z-30 top-0 left-0 h-full w-64 bg-white shadow-lg transform md:translate-x-0 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out`}
+        className={`fixed top-0 left-0 h-full bg-gradient-to-b from-blue-700 to-blue-800 text-white shadow-lg transition-all duration-300 ease-in-out overflow-hidden ${
+          sidebarOpen ? "w-72" : "w-16"
+        }`}
       >
-        <div className="p-4 text-xl font-bold text-blue-700 border-b">
-          Admin Panel
-        </div>
-        <nav className="flex flex-col space-y-2 p-4 text-gray-700">
-          {[
-            ["dashboard", "Dashboard"],
-            ["inbox", "Inbox"],
-            ["courses", "Courses"],
-            ["students", "Students"],
-            ["createBatch", "Create Batch"],
-            ["createFolder", "Create Folder"],
-            ["uploadVideo", "Upload Video"],
-          ].map(([key, label]) => (
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between px-4 py-4 border-b border-blue-600">
+            {sidebarOpen && <span className="text-xl font-bold">Admin Dashboard</span>}
             <button
-              key={key}
-              onClick={() => {
-                setActive(key);
-                setSidebarOpen(false);
-              }}
-              className={`text-left px-3 py-2 rounded ${
-                active === key ? "bg-blue-100 text-blue-700" : ""
-              }`}
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 hover:bg-blue-600 rounded-full transition-colors"
             >
-              {label}
+              {sidebarOpen ? <ChevronLeft size={28} /> : <ChevronRight size={28} />}
             </button>
-          ))}
-        </nav>
+          </div>
+          <nav className="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
+            {menuItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => setActive(item.key)}
+                className={`flex items-center w-full px-3 py-3 rounded hover:bg-blue-600 transition-colors ${
+                  active === item.key ? "bg-blue-600" : ""
+                }`}
+              >
+                {item.icon}
+                {sidebarOpen && <span className="ml-3 text-sm font-medium">{item.label}</span>}
+              </button>
+            ))}
+          </nav>
+          <div className="p-4 border-t border-blue-600">
+            <button
+              onClick={handleLogout}
+              className="flex items-center w-full px-3 py-2 bg-red-500 hover:bg-red-600 rounded transition-colors"
+            >
+              <LogOut size={24} />
+              {sidebarOpen && <span className="ml-3 text-sm font-medium">Logout</span>}
+            </button>
+          </div>
+        </div>
       </aside>
 
-      {/* Overlay for mobile */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-30 z-20 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col h-full">
-        <header className="flex items-center justify-between bg-white p-4 shadow md:hidden">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-2xl"
-          >
-            ☰
-          </button>
-          <h1 className="text-lg font-bold">Admin Panel</h1>
+      <div
+        className={`flex-1 transition-all duration-300 ease-in-out ${
+          sidebarOpen ? "ml-72" : "ml-16"
+        } flex flex-col h-full`}
+      >
+        <header className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
+          <h1 className="text-xl font-bold text-blue-700">Welcome, Admin</h1>
         </header>
-
-        <main className="flex-1 overflow-auto bg-white">{renderContent()}</main>
+        <main className="flex-1 overflow-auto p-6 bg-gray-50">
+          <div className="max-w-7xl mx-auto">{renderContent()}</div>
+        </main>
       </div>
     </div>
   );

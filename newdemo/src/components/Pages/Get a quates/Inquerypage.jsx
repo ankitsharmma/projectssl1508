@@ -1,135 +1,79 @@
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React from "react";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css';
+import { Facebook, Twitter, Instagram, Youtube, Linkedin } from "lucide-react";
 
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Linkedin,
-} from "lucide-react";
-
-export default function ContactForm4() {
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
+export default function SimpleContactForm() {
+  const socialIcons = [Facebook, Twitter, Instagram, Linkedin, Youtube];
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-white px-4 py-10 md:py-20">
+    <div className="min-h-screen bg-gray-900 flex flex-col md:flex-row items-center justify-center px-4 py-16">
       
-      {/* Left Panel - Image and Social */}
-      <div
-        className="md:w-1/2 w-full bg-blue-900 text-white rounded-lg overflow-hidden shadow-lg mb-10 md:mb-0 md:mr-6"
-        data-aos="fade-up"
-      >
+      {/* Left Image */}
+      <div className="md:w-1/2 w-full flex items-center justify-center mb-10 md:mb-0">
         <img
-          src="https://www.neksoftconsultancy.com/wp-content/uploads/2022/08/staff-05.jpg"
-          alt="Contact"
-          className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-500"
+          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+          alt="Contact Hero"
+          className="w-full h-[400px] object-cover rounded-2xl shadow-lg"
         />
-        <div className="p-6 text-center">
-          <h2 className="text-lg font-semibold mb-4">Social profiles</h2>
-          <div className="flex justify-center space-x-6 text-blue-100">
-            <a href="#" className="hover:text-white transition duration-300">
-              <Facebook className="w-6 h-6" />
-            </a>
-            <a href="#" className="hover:text-white transition duration-300">
-              <Twitter className="w-6 h-6" />
-            </a>
-            <a href="#" className="hover:text-white transition duration-300">
-              <Instagram className="w-6 h-6" />
-            </a>
-            <a href="#" className="hover:text-white transition duration-300">
-              <Youtube className="w-6 h-6" />
-            </a>
-            <a href="#" className="hover:text-white transition duration-300">
-              <Linkedin className="w-6 h-6" />
-            </a>
-          </div>
-        </div>
       </div>
 
-      {/* Right Panel - Form */}
-      <div
-        className="md:w-1/2 w-full"
-        data-aos="fade-down"
-      >
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">Get in touch!</h1>
-        <p className="text-gray-600 mb-8">
-          Have a question or need assistance? Feel free to reach out to us. We’re here to support you.
+      {/* Right Form */}
+      <div className="md:w-1/2 w-full max-w-lg flex flex-col items-center">
+        <h1 className="text-3xl font-bold text-white mb-2">Get in touch!</h1>
+        <p className="text-gray-300 text-center mb-6">
+          Have a question or need assistance? Fill out the form below, and we'll get back to you.
         </p>
 
-        <form className="space-y-4">
-          {/* Name Fields */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <input
-              type="text"
-              placeholder="First"
-              className="w-full md:w-1/2 p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Last"
-              className="w-full md:w-1/2 p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              required
-            />
-          </div>
-
-          {/* Phone and Email */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <input
-              type="text"
-              placeholder="🇮🇳 081234 56789"
-              className="w-full md:w-1/2 p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full md:w-1/2 p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              required
-            />
-          </div>
-
-          {/* Services and Software Products */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <select
-              className="w-full md:w-1/2 p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              required
-            >
-              <option>Website Solution</option>
-              <option>Mobile App</option>
-              <option>Cloud Services</option>
-            </select>
-            <select
-              className="w-full md:w-1/2 p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              required
-            >
-              <option>Company Resource Management</option>
-              <option>CRM</option>
-              <option>ERP</option>
-            </select>
-          </div>
-
-          {/* Message Textarea */}
-          <div>
-            <textarea
-              placeholder="Message"
-              className="w-full p-3 border rounded-md focus:outline-none focus:ring hover:shadow-md"
-              rows="4"
-            />
-          </div>
-
-          {/* Submit Button */}
+        <form className="w-full space-y-4">
+          <input
+            type="text"
+            placeholder="First Name"
+            className="w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <PhoneInput
+            country={"in"}
+            enableSearch
+            inputClass="w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            dropdownClass="bg-gray-800 text-white"
+            placeholder="Phone Number"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <select className="w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option>Website Solution</option>
+            <option>Mobile App</option>
+            <option>Cloud Services</option>
+          </select>
+          <textarea
+            placeholder="Message"
+            rows={4}
+            className="w-full p-3 rounded-lg border border-white/30 bg-white/10 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
           <button
             type="submit"
-            className="bg-blue-900 text-white px-6 py-3 rounded-md hover:bg-blue-800 transition-all shadow-md w-full sm:w-auto"
+            className="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors"
           >
             Submit
           </button>
         </form>
+
+        {/* Social Icons */}
+        <div className="flex justify-center space-x-6 mt-6">
+          {socialIcons.map((Icon, idx) => (
+            <a key={idx} href="#" className="text-gray-400 hover:text-white">
+              <Icon className="w-6 h-6" />
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );

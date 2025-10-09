@@ -8,85 +8,74 @@ import {
   BookOpen,
   Users,
   Smartphone,
+  Cpu,
+  Shield,
+  Cloud,
 } from "lucide-react";
 
 const services = [
-  {
-    title: "Website Solutions",
-    description: "Your website is your digital storefront...",
-    icon: <Globe className="text-white" size={32} />,
-    link: "/services/website-solutions",
-  },
-  {
-    title: "Digital Marketing",
-    description: "Elevate your website’s ranking...",
-    icon: <BarChart2 className="text-white" size={32} />,
-    link: "/services/digital-marketing",
-  },
-  {
-    title: "Software Development",
-    description: "From concept to deployment...",
-    icon: <Code className="text-white" size={32} />,
-    link: "/services/software-development",
-  },
-  {
-    title: "Skill Development",
-    description: "We provide IT skill development training...",
-    icon: <BookOpen className="text-white" size={32} />,
-    link: "/services/skill-development",
-  },
-  {
-    title: "Recruitment",
-    description: "We are global IT recruitment provider...",
-    icon: <Users className="text-white" size={32} />,
-    link: "/services/recruitment",
-  },
-  {
-    title: "Mobile Development",
-    description: "Offering tailored mobile development services...",
-    icon: <Smartphone className="text-white" size={32} />,
-    link: "/services/mobile-development",
-  },
+  { title: "Website Solutions", description: "Responsive, fast, and SEO-friendly websites.", icon: <Globe size={28} /> },
+  { title: "Digital Marketing", description: "Boost online presence with targeted campaigns.", icon: <BarChart2 size={28} /> },
+  { title: "Software Development", description: "End-to-end software solutions for businesses.", icon: <Code size={28} /> },
+  { title: "Skill Development", description: "IT skill training for individuals and teams.", icon: <BookOpen size={28} /> },
+  { title: "Recruitment", description: "Global IT recruitment connecting top talent.", icon: <Users size={28} /> },
+  { title: "Mobile Development", description: "Custom apps for iOS & Android.", icon: <Smartphone size={28} /> },
+  { title: "AI & ML Solutions", description: "Intelligent systems and machine learning models.", icon: <Cpu size={28} /> },
+  { title: "Cybersecurity", description: "Protect your systems and data with robust security solutions.", icon: <Shield size={28} /> },
+  { title: "Cloud Solutions", description: "Scalable and secure cloud infrastructure for enterprises.", icon: <Cloud size={28} /> },
 ];
 
 export default function ServicesSection() {
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init({ duration: 1200 });
   }, []);
 
   return (
-    <section className="bg-gray-30 py-12 px-6 text-center">
-      <div className="mb-30">
-        <h4 className="text-blue-700 uppercase font-semibold tracking-wide text-l md:text-m mb-2">
+    <section className="relative py-24 px-6 overflow-hidden bg-gray-900 text-white">
+      {/* Animated Gradient Blobs */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/30 rounded-full filter blur-3xl animate-blob"></div>
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-purple-500/30 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
+      <div className="absolute top-20 right-1/3 w-64 h-64 bg-pink-500/20 rounded-full filter blur-2xl animate-blob animation-delay-4000"></div>
+
+      {/* Particle Lines */}
+      <div className="absolute inset-0">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-[1px] h-20 bg-white/10 animate-fade-up"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDuration: `${3 + Math.random() * 3}s`,
+              animationDelay: `${Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Header */}
+      <div className="relative z-10 text-center mb-16">
+        <h4 className="text-cyan-400 uppercase tracking-wider font-semibold mb-2">
           Our Services
         </h4>
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0B0F29]">
-          “Global Solutions, Local Expertise”
+        <h2 className="text-4xl md:text-5xl font-extrabold text-white">
+          Innovative AI & IT Solutions for Businesses
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Services Grid */}
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {services.map((service, index) => (
           <div
             key={index}
-            data-aos="flip-right"
+            data-aos="fade-up"
             data-aos-delay={index * 100}
-            className="bg-[#0B0F29] h-full text-white rounded-2xl shadow-2xl shadow-blue-500/80 p-6 mb-6 flex flex-col items-start gap-6 hover:scale-105 transition-transform duration-300"
+            className="group relative flex flex-col items-start p-6 bg-black/30 backdrop-blur-md border border-white/10 rounded-3xl shadow-lg hover:shadow-cyan-500/50 transform hover:scale-105 hover:-translate-y-1 transition-all duration-500"
           >
-            <div className="bg-blue-500 p-4 rounded-2xl">{service.icon}</div>
-            <h3 className="text-2xl font-bold">{service.title}</h3>
-            <p className="text-gray-300 text-base leading-relaxed">
-              {service.description}
-            </p>
-
-         <a
-  href={service.link}
-  data-aos="zoom-in"
-  className="mt-auto px-5 py-2 rounded-md bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium hover:brightness-110 hover:scale-105 transition-all duration-300"
->
-  Learn More
-</a>
-
+            <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-tr from-cyan-400 via-purple-400 to-pink-400 rounded-xl text-white mb-4">
+              {service.icon}
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
+            <p className="text-gray-300 text-sm mb-4">{service.description}</p>
           </div>
         ))}
       </div>

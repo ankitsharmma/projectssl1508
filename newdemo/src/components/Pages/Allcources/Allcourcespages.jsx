@@ -6,7 +6,7 @@ function Allcourcespages() {
   return (
    <>
    <CourseSearch/>
-   <FilterBar/>
+   {/* <FilterBar/> */}
    
    
    

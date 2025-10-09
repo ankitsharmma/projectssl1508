@@ -8,7 +8,13 @@ const Popup = () => {
 
   useEffect(() => {
     AOS.init({ duration: 700 });
-    setIsOpen(true);
+
+    // Check if popup was already shown
+    const popupShown = localStorage.getItem("popupShown");
+    if (!popupShown) {
+      setIsOpen(true);
+      localStorage.setItem("popupShown", "true"); // mark it as shown
+    }
   }, []);
 
   if (!isOpen) return null;
@@ -61,14 +67,6 @@ const Popup = () => {
             className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-green-600 transition"
           >
             View Courses
-          </a>
-          <a
-            href="https://sslcloud.in/internships"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-green-500 text-green-500 px-5 py-2 rounded-md hover:bg-green-50 transition"
-          >
-            View Internships
           </a>
         </div>
       </div>

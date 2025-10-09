@@ -66,14 +66,14 @@ const CounterStats = () => {
           key={index}
           data-aos="fade-up"
           data-aos-delay={index * 100}
-          className={`flex flex-col items-center justify-center ${stat.cardColor} shadow-2xl rounded-2xl shadow-blue-500/50 p-6 w-64 transition-transform duration-300 hover:scale-105`}
+          className={`flex flex-col items-center font-bold  font-bold1 justify-center ${stat.cardColor} shadow-2xl rounded-2xl shadow-blue-500/50 p-6 w-64 transition-transform duration-300 hover:scale-105`}
         >
           <div
             className={`p-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center w-16 h-16`}
           >
             <img src={stat.icon} alt="icon" className="w-10 h-10" />
           </div>
-          <h3 className="text-2xl font-bold mt-3">
+          <h3 className="text-2xl font-bold1 mt-3">
             {counts[index]}
             {stat.suffix}
           </h3>

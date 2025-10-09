@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const Dashboardgraph = () => {
-  // ✅ API endpoints
-  const API_BASE_FOLDERS = "/auth/folders"; // For folders count
-  const API_BASE_USERS = "/auth/user"; // For users count
+const  Dashboardgraph = () => {
+  // ✅ Set API base URL here
+  const API_BASE = "/auth/folders"
+  ; // works with Vite proxy in development
+  const API_BASE_URL = "/auth/user";
 
   const [studentCount, setStudentCount] = useState(0);
   const [folderCount, setFolderCount] = useState(0);
@@ -12,7 +13,7 @@ const Dashboardgraph = () => {
 
   // Fetch total students
   useEffect(() => {
-    fetch(` ${API_BASE_USERS}`, { method: "GET" })
+    fetch(API_BASE_URL)
       .then((res) => res.json())
       .then((data) => {
         setStudentCount(data.users ? data.users.length : 0);
@@ -26,7 +27,7 @@ const Dashboardgraph = () => {
 
   // Fetch total folders
   useEffect(() => {
-    fetch(` ${API_BASE_FOLDERS}`, { method: "GET" })
+    fetch( API_BASE)
       .then((res) => res.json())
       .then((data) => {
         setFolderCount(
@@ -64,5 +65,4 @@ const Dashboardgraph = () => {
     </div>
   );
 };
-
-export default Dashboardgraph;
+      export default Dashboardgraph;

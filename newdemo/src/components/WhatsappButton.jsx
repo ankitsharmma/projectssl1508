@@ -37,7 +37,7 @@ const WhatsappButton = () => {
         alt="WhatsApp"
         style={iconStyle}
       />
-      <span style={textStyle}>WhatsApp Us</span>
+      <span style={textStyle}></span>
     </a>
   );
 };

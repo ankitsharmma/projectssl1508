@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Mail, Phone } from "lucide-react";
 import logo from "../../assets/ssl1.png";
 
 const navItems = [
@@ -19,13 +19,45 @@ function Header() {
 
   return (
     <>
-      {/* Fixed Header */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
-        <div className="container mx-auto flex items-center justify-between py-4 px-4">
-          {/* Logo */}
-          <div className="flex items-center">
-            <img src={logo} alt="iWay" className="h-12 w-auto" />
+      {/* 🔹 Top Info Bar (Desktop Only) */}
+      <div className="fixed top-0 left-0 w-full bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 text-white z-50 h-12 hidden md:flex items-center">
+        <div className="container mx-auto flex items-center justify-between px-4 w-full text-xs md:text-sm">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-1 bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm">
+              <Mail className="w-4 h-4 text-yellow-300" />
+              <span>support@sslcloudsolution.com</span>
+            </div>
+            <div className="flex items-center space-x-1 bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm">
+              <Phone className="w-4 h-4 text-green-300" />
+              <span>+91 8299408873 , 7204379415</span>
+            </div>
           </div>
+          <div className="flex-1 mx-4 overflow-hidden text-center">
+            <marquee className="text-yellow-300 font-semibold">
+              🔔 Admission Open! Enroll Now for the Latest IT Courses. Limited Seats Available!
+            </marquee>
+          </div>
+          <div className="flex items-center space-x-2">
+            <a
+              href="/login"
+              className="bg-white text-blue-600 px-3 py-1 rounded-full font-semibold hover:bg-gray-100 transition shadow-sm"
+            >
+              Student Login
+            </a>
+            <a
+              href="/Institute-login"
+              className="bg-white text-blue-600 px-3 py-1 rounded-full font-semibold hover:bg-gray-100 transition shadow-sm"
+            >
+              Institute Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 🔹 Main Header */}
+      <header className="fixed top-0 md:top-12 left-0 w-full z-40 bg-white/90 backdrop-blur-lg shadow-lg h-16 flex items-center transition-all">
+        <div className="container mx-auto flex items-center justify-between px-4 w-full">
+          <img src={logo} alt="SSL Cloud Solution" className="h-12 w-auto drop-shadow-md" />
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-6">
@@ -33,33 +65,19 @@ function Header() {
               <a
                 key={idx}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
+                className="relative text-gray-700 hover:text-blue-600 font-medium transition group"
               >
                 {item.name}
+                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 transition-all group-hover:w-full rounded-full"></span>
               </a>
             ))}
           </nav>
 
-          {/* Right Side Buttons (Desktop) */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-md font-semibold space-x-1">
-              {/* <a
-                href="/register"
-                className="hover:text-blue-600"
-              >
-                Register
-              </a>
-              <span>/</span> */}
-              <a
-                href="/login"
-                className="hover:text-blue-600"
-              >
-                Login
-              </a>
-            </div>
+          {/* CTA Button */}
+          <div className="hidden md:flex items-center">
             <a
               href="/Get-a-Quote"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 font-semibold"
+              className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition transform font-semibold"
             >
               Get a Quote
             </a>
@@ -70,78 +88,75 @@ function Header() {
             className="md:hidden text-gray-700"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </header>
 
-      {/* Overlay */}
+      {/* Mobile Fullscreen Menu */}
       {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40"
-          onClick={() => setMobileMenuOpen(false)}
-        />
+        <div className="fixed inset-0 z-40 flex">
+          {/* Blurred Overlay */}
+          <div
+            className="absolute inset-0 backdrop-blur-md bg-black/30"
+            onClick={() => setMobileMenuOpen(false)}
+          ></div>
+
+          {/* Fullscreen Menu Panel */}
+          <div className="relative w-full h-full flex flex-col items-center justify-center bg-white/95 backdrop-blur-lg">
+            {/* Close Button */}
+            <button
+              className="absolute top-6 right-6 text-gray-700 hover:text-red-500 transition"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Menu Items */}
+            <nav className="flex flex-col items-center space-y-8 text-2xl font-semibold">
+              {navItems.map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.href}
+                  className="text-gray-700 hover:text-blue-600 transition transform hover:scale-105"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+
+              <a
+                href="/Get-a-Quote"
+                className="mt-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-3 rounded-full shadow-lg hover:scale-110 transition transform font-semibold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Get a Quote
+              </a>
+
+              {/* Login Buttons */}
+              <div className="flex flex-col space-y-4 mt-8">
+                <a
+                  href="/login"
+                  className="block text-center bg-gray-100 text-blue-600 px-8 py-2 rounded-full font-semibold hover:bg-gray-200 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Student Login
+                </a>
+                <a
+                  href="/Institute-login"
+                  className="block text-center bg-gray-100 text-blue-600 px-8 py-2 rounded-full font-semibold hover:bg-gray-200 transition"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Institute Login
+                </a>
+              </div>
+            </nav>
+          </div>
+        </div>
       )}
 
-      {/* Mobile Sidebar Menu */}
-      <div
-        className={`fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform ${
-          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        } transition-transform duration-300 z-50`}
-      >
-        <div className="flex justify-end p-4">
-          <button onClick={() => setMobileMenuOpen(false)}>
-            <X className="w-6 h-6 text-gray-700" />
-          </button>
-        </div>
-
-        <nav className="flex flex-col space-y-4 px-6">
-          {navItems.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.href}
-              className="text-gray-700 hover:text-blue-600"
-            >
-              {item.name}
-            </a>
-          ))}
-
-         {/* Right Side Buttons (Desktop) */}
-<div className="hidden md:flex items-center space-x-4">
-  <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-md font-semibold space-x-1 mr-10">
-    {/* <a
-      href="/register"
-      className="hover:text-blue-600"
-    >
-      Register
-    </a>
-    <span>/</span> */}
-    <a
-      href="/login"
-      className="hover:text-blue-600"
-    >
-      Login
-    </a>
-  </div>
-  <a
-    href="/Get-a-Quote"
-    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 font-semibold"
-  >
-    Get a Quote
-  </a>
-</div>
-          {/* CTA Button */}
-          <a
-            href="/Get-a-Quote"
-            className="block text-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-          >
-            Get a Quote
-          </a>
-        </nav>
-      </div>
-
       {/* Spacer */}
-      <div className="h-0 md:h-0" />
+      <div className="h-16 md:h-28" />
     </>
   );
 }

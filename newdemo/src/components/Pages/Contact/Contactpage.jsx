@@ -1,5 +1,5 @@
 import React from 'react'
-import Contactbanner from './contactbaneer';
+import Contactbanneer from './Contactbaneer';
 import ContactCards from './Contactcard';
 import ContactForm from './Contactform';
 import Googlemap from './Googlemap';
@@ -7,9 +7,9 @@ import Googlemap from './Googlemap';
 function Contactpage() {
   return (
 <>
-<Contactbanner/>
+<Contactbanneer/>
 
-<ContactForm/>
+{/* <ContactForm/> */}
 <ContactCards/>
 <Googlemap/>
 </>

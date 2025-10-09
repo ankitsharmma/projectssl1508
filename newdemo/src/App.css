@@ -12,7 +12,11 @@
 
 .font-bold {
   font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
+}
+.font-bold1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
 }
 
 
@@ -64,4 +68,6 @@
   font-family: 'Dancing Script', cursive;
   font-style: italic;
 }
+
+
 

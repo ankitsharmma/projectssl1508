@@ -2,73 +2,79 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const TrainingInfo = () => {
+const TrainingInfoMediumBlur = () => {
   useEffect(() => {
-    AOS.init({ duration: 800 });
+    AOS.init({ duration: 1000, once: false });
   }, []);
 
-  return (
-    <div className="grid grid-cols-1 bg-gradient-to-br from-pink-200 to-blue-100  md:grid-cols-2 gap-8 p-6 mx-auto mt-10 mb-20">
-      {/* Image Section */}
-      <div>
-        <img
-          src="https://img.freepik.com/premium-photo/young-business-people-meeting-office-teamwork-group-whiteboard-presentation-seminar-man-businessman-startup-project-idea_565246-2475.jpg?ga=GA1.1.1039965199.1713434742&semt=ais_hybrid&w=740"
-          alt="Training"
-          className="w-full h-auto bg-blue-100 rounded-2xl shadow-2xl mt-20 mb-20 transition-transform duration-300 hover:scale-105"
-          data-aos="fade-right"
-        />
-      </div>
+  const features = [
+    {
+      title: "Personalized Learning",
+      desc: "We assess your skill level and career goals to recommend the most suitable course.",
+    },
+    {
+      title: "Live Expert-Led Training",
+      desc: "Industry experts conduct interactive sessions with real-world case studies and exercises.",
+    },
+    {
+      title: "Hands-On Experience",
+      desc: "Work on real-time projects and case studies to ensure applied learning.",
+    },
+    {
+      title: "Flexible Learning Options",
+      desc: "Choose from instructor-led, self-paced, or corporate programs as per your convenience.",
+    },
+  ];
 
-      {/* Text Content Section */}
-      <div 
-         className="mt-20 mb-20 "
-         data-aos="fade-down">
-        <h2 className="text-3xl font-bold mb-4 text-black border-l-4 border-blue-600 pl-2">
+  return (
+    <section
+      className="relative py-16 px-6"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Medium Blur Overlay */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+      <div className="relative max-w-6xl mx-auto flex flex-col items-center">
+        {/* Heading */}
+        <h2
+          className="text-4xl font-extrabold text-white mb-8 border-l-4 border-pink-400 pl-4 p-2 rounded-md backdrop-blur-sm"
+          data-aos="fade-down"
+        >
           How We Work
         </h2>
-        <p className="text-gray-600 mb-4 font-titillium text-md">
+
+        {/* Intro Paragraph */}
+        <p
+          className="text-white/90 mb-12 leading-relaxed text-center max-w-3xl p-4 rounded-lg backdrop-blur-sm"
+          data-aos="fade-up"
+        >
           At SL Cloud Services, we follow a structured, results-driven approach
-          to deliver high-quality online training programs. Our process ensures
-          that every learner gains in-depth knowledge, hands-on experience, and
-          career-enhancing skills.
+          to deliver high-quality online training programs. Every learner gains
+          deep knowledge, hands-on experience, and career-enhancing skills.
         </p>
 
-        <div className="space-y-4">
-          <div>
-            <h3 className="font-semibold">Personalized Learning</h3>
-            <p className="text-gray-700">
-              We assess your skill level and career goals to recommend the
-              right course.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Live Expert-Led Training</h3>
-            <p className="text-gray-600">
-              Industry professionals conduct interactive sessions with
-              real-world case studies and practical exercises.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Hands-On Experience</h3>
-            <p className="text-gray-600">
-              Gain real-time project assignments and case studies to ensure
-              applied learning.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Flexible Learning Options</h3>
-            <p className="text-gray-600">
-              Choose from instructor-led, self-paced, or corporate training
-              programs based on your convenience.
-            </p>
-          </div>
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full">
+          {features.map((feature, idx) => (
+            <div
+              key={idx}
+              className="bg-white/15 backdrop-blur-sm rounded-3xl shadow-2xl p-6 border border-white/20 transform transition-transform duration-700 hover:scale-105 hover:-translate-y-3 hover:rotate-y-6"
+              data-aos="zoom-in-up"
+              data-aos-delay={idx * 200}
+            >
+              <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
+              <p className="text-white/80">{feature.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default TrainingInfo;
+export default TrainingInfoMediumBlur;
