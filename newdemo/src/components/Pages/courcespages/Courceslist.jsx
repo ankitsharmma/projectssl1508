@@ -11,9 +11,7 @@ const bgVariants = [
   "bg-[#2E3A59]",
 ];
 
-// 🟦 Your backend domain (update here if needed)
-const BACKEND_URL = "https://sslcloudservices.com/auth/bestsellingcourses";
-
+const bestSellingCoursesUrl = "auth/bestsellingcourses";
 const CourseCard = ({ course, index }) => {
   const bgColor = bgVariants[index % bgVariants.length];
 
@@ -22,17 +20,12 @@ const CourseCard = ({ course, index }) => {
     course.price - (course.price * course.discountPercent) / 100
   );
 
-  // ✅ Build full image URL
-  const imageSrc = course.image?.startsWith("http")
-    ? course.image
-    : `${BACKEND_URL}${course.image}`;
-
   return (
     <div
       data-aos="flip-left"
       data-aos-delay={index * 100}
-      className={`relative bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e]
-      text-white rounded-2xl shadow-2xl shadow-blue-500/50 overflow-hidden
+      className={`relative bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] 
+      text-white rounded-2xl shadow-2xl shadow-blue-500/50 overflow-hidden 
       transition-transform transform hover:scale-105 duration-300`}
     >
       {/* ✅ Discount Badge */}
@@ -42,9 +35,8 @@ const CourseCard = ({ course, index }) => {
         </div>
       )}
 
-      {/* ✅ Image with automatic backend URL */}
       <img
-        src={imageSrc}
+        src={`${bestSellingCoursesUrl}${course.image}`}
         alt={course.title}
         className="w-full h-48 object-cover"
       />
@@ -94,14 +86,13 @@ const CourseCard = ({ course, index }) => {
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
 
-  // ✅ Direct relative API URL
-  const API_URL = "auth/bestsellingcourses";
-
   useEffect(() => {
     AOS.init({ duration: 1000 });
 
     // ✅ Fetch API call
-    fetch(API_URL)
+    fetch( bestSellingCoursesUrl, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

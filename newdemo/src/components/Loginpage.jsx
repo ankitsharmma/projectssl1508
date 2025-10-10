@@ -11,8 +11,7 @@ import { useAuth } from "../Authcontext";
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth(); // ✅ useAuth context
-
-  const Login_url="/auth/login";
+  const login_url= "auth/login"
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -23,12 +22,6 @@ const Login = () => {
     password: "",
   });
 
-<<<<<<< HEAD
-=======
-  // Set your backend login API URL here
-  const URL_Login = "https://api.sslcloudservices.com/auth/login"; // Change to full URL if backend is on another domain
-
->>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginInfo((prev) => ({ ...prev, [name]: value }));
@@ -43,11 +36,7 @@ const Login = () => {
     }
 
     try {
-<<<<<<< HEAD
-      const response = await fetch(Login_url, {
-=======
-      const response = await fetch( URL_Login,    {
->>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
+      const response = await fetch(`${login_url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginInfo),

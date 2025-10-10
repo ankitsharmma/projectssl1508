@@ -3,13 +3,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminManager() {
+  const  adminuser_url= "auth/Adminuser"
+  const adminsignup_url= "auth/Adminsignup"
+  const updateadmin_url= "auth/Adminuser/email"
+  const deleteadmin_url= "auth/Adminuser/email"
+ 
 
-  const API_SIGNUP = "/auth/Adminsignup";
-
-  const API_DELETE = "/auth/Adminuser/email";
-  const API_PUT = "/auth/Adminuser/email";
-  const API_GET = "/auth/Adminuser";
-  
 
   const [admins, setAdmins] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +22,8 @@ export default function AdminManager() {
 
   // ✅ Fetch all admins (GET)
   const fetchAdmins = async () => {
-    try {
-      const res = await fetch(  API_GET, { method: "GET" });
+    try {     
+      const res = await fetch( adminuser_url, { method: "GET" });
       const data = await res.json();
       if (res.ok) {
         setAdmins(data.admins || []);
@@ -39,7 +38,7 @@ export default function AdminManager() {
   // ✅ Create new admin (POST)
   const createAdmin = async (adminData) => {
     try {
-      const res = await fetch( API_SIGNUP, {
+      const res = await fetch(adminsignup_url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(adminData),
@@ -59,7 +58,7 @@ export default function AdminManager() {
   // ✅ Update admin (PUT)
   const updateAdmin = async (adminData) => {
     try {
-      const res = await fetch( API_PUT, {
+      const res = await fetch( updateadmin_url, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(adminData),
@@ -79,7 +78,7 @@ export default function AdminManager() {
   // ✅ Delete admin (DELETE)
   const deleteAdmin = async (email) => {
     try {
-      const res = await fetch( API_DELETE, {
+      const res = await fetch( deleteadmin_url, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

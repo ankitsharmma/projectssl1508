@@ -26,9 +26,9 @@ import Login from './components/Loginpage';
 import VideoGallery from './components/Dashboardpage';
 import DashboardAdmin from './components/AdminDashbord';
 import InstituteLogin from './components/Instituteloginpage';
+import Dashboardgraph from "./components/Admindashbordpages/Dashboardgraph";
 
 function App() {
-<<<<<<< HEAD
   const appRouter = createBrowserRouter([
     {
       path: "/",
@@ -58,117 +58,20 @@ function App() {
         { path: "/services/website-solutions", element: <Websolutionhomepages /> },
         { path: "/about", element: <Aboutpage /> },
         { path: "/register", element: <SignUp /> },
-        
+       
       ],
     },
-    { path: "/login", element: <Login /> },
+     { path: "/login", element: <Login /> },
     {
   path: "/VideoGallery",
   element:<ProtextedRoute> <VideoGallery /></ProtextedRoute>
 },
-  {
-    path: "/admindashboard"
-    , element: <DashboardAdmin />
-  }
-,
+{
+  path : "/DashboardAdmin",
+  element :<DashboardAdmin/>
+},
 
-=======
-  const appRouter = createBrowserRouter(
-    [
 
-      {
-
-        path: "/",
-        element: <AppLayout />,
-        errorElement:<ErrorPages/>,
-        children: [
-          {
-            path: "/",
-            element: (<>
-            <HomeSection/>
-            <CounterStats/>
-          <Newstpagescources1/>
-       
-            <Courcesmain/>
-            <TrainingInfo/>
-            <Instructurepages/>
-            <PartnershipSlider/>
-            <EventDetails/>
-            
-            
-            </>)
-          },
-          {
-            path: "/Get-a-Quote",
-            element:<Quatasepage/>
-          },
-          {
-            path: "/Cources-pages",
-            element: <Allcourcespages/>
-          },
-          {
-            path: "/Cources-pages/5",
-            element: <Devopsengenerpages/>
-          },{
-            path:"/contact",
-            element:<Contactpage/>
-          },
-          {
-            path: "/services",
-            element: <Servicespages/>
-          }
-          ,{
-            path: "/services/website-solutions",
-            element:<Websolutionhomepages/>
-          },
-          {
-            path: "/about",
-            element: <Aboutpage/>
-          },
-          {
-            path: "/register",
-            element: <SignUp/>
-          },
-           {
-            path: "/login",
-            element: <Login/>
-          }
-          ,
-        
-
-          
-            
-          
-        
-        ]
-        
-      },
-      {
-path: "/DashboardAdmin",
-            element: <DashboardAdmin/>
-      },
-      {
-     path: "/batch/SSLCLOUDBATCH-19",
-     element :<VideoGallery/>
-  },
-        {
-  path: "/dashboard",
-  element: (
-    <PrivateRoute>
-      <YouTubePlaylist/>
-    </PrivateRoute>
-  )
-}
-    
-    ]
-  );
-    
-
-  return (
-    
-<>
-<main>
->>>>>>> 14d7b698ffccfc2373a592689732a32412bb6a13
    
     { path: "/Institute-login", element: <InstituteLogin /> },
   ]);

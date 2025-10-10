@@ -7,5 +7,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
- 
+  server: {
+    proxy: {
+      '/auth': {
+        target: 'https://api.sslcloudservices.com',
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  }
 });

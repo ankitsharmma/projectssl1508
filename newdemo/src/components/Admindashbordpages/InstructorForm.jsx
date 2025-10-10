@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export default function InstructorForm() {
-  const BASE_URL = "http://localhost:8080/auth/instructor";
+  const BASE_URL = "/auth/instructor";
 
   const [formData, setFormData] = useState({
     name: "",

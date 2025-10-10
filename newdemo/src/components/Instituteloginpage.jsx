@@ -20,7 +20,7 @@ const AdminLogin = () => {
   });
 
   // ✅ Base API URL
-  const BASE_URL = "/auth";
+  const BASE_URL = " auth/Adminlogin";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +36,7 @@ const AdminLogin = () => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}/Adminlogin`, {
+      const response = await fetch( BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginInfo)

@@ -5,7 +5,7 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Star } from "lucide-react";
 
-const BASE_URL = "/auth/instructor"; // Update with your actual base URL
+const BASE_URL = " /auth/instructor";
 
 const ProfileSlider = () => {
   const [profiles, setProfiles] = useState([]);
@@ -14,7 +14,7 @@ const ProfileSlider = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const res = await fetch( BASE_URL );
+        const res = await fetch( BASE_URL);
         const result = await res.json();
         if (result.success && result.data) {
           setProfiles(

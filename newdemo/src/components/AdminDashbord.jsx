@@ -23,7 +23,7 @@ import CreateAdmin from "./Admindashbordpages/createadmin";
 import NewSellingCourses from "./Admindashbordpages/Newestsellingcources";
 
 const DashboardAdmin = () => {
-  const navigate = useNavigate( ); // <--- hook
+  const navigate = useNavigate(); // <--- hook
 
   const [active, setActive] = useState("dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);

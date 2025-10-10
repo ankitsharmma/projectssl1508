@@ -16,7 +16,6 @@ export default function BestSellingCourses() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  // ✅ Single API URL (no BASE_URL)
   const API_URL = "/auth/bestsellingcourses";
 
   // ✅ Fetch all courses
@@ -60,11 +59,13 @@ export default function BestSellingCourses() {
 
       let res;
       if (isEdit) {
+        // 🔹 Update → PUT (no id in URL)
         res = await fetch(API_URL, {
           method: "PUT",
           body: dataToSend,
         });
       } else {
+        // 🔹 Create → POST
         res = await fetch(API_URL, {
           method: "POST",
           body: dataToSend,
@@ -81,7 +82,7 @@ export default function BestSellingCourses() {
     }
   };
 
-  // ✅ Edit Course
+  // ✅ Edit (just open modal with data)
   const handleEdit = (course) => {
     setFormData({
       title: course.title,
@@ -93,12 +94,12 @@ export default function BestSellingCourses() {
       image: null,
       description: course.description,
     });
-    setPreview(course.image ? `https://sslcloudservices.com${course.image}` : null);
+    setPreview(course.image ? `${API_URL}${course.image}` : null);
     setIsEdit(true);
     setIsOpen(true);
   };
 
-  // ✅ Delete Course
+  // ✅ Delete (no id in URL)
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
@@ -154,17 +155,31 @@ export default function BestSellingCourses() {
               key={index}
               className="p-4 bg-white rounded-lg shadow-md border space-y-2"
             >
-              <p><strong>Title:</strong> {c.title}</p>
-              <p><strong>Category:</strong> {c.category}</p>
-              <p><strong>Duration:</strong> {c.durationHours} hrs</p>
-              <p><strong>Price:</strong> ₹{c.price}</p>
-              <p><strong>Off Price:</strong> {c.offPrice || "-"}</p>
-              <p><strong>Discount:</strong> {c.discountPercent || "-"}%</p>
-              <p><strong>Description:</strong> {c.description}</p>
+              <p>
+                <strong>Title:</strong> {c.title}
+              </p>
+              <p>
+                <strong>Category:</strong> {c.category}
+              </p>
+              <p>
+                <strong>Duration:</strong> {c.durationHours} hrs
+              </p>
+              <p>
+                <strong>Price:</strong> ₹{c.price}
+              </p>
+              <p>
+                <strong>Off Price:</strong> {c.offPrice || "-"}
+              </p>
+              <p>
+                <strong>Discount:</strong> {c.discountPercent || "-"}%
+              </p>
+              <p>
+                <strong>Description:</strong> {c.description}
+              </p>
               <div>
                 {c.image ? (
                   <img
-                    src={`https://sslcloudservices.com${c.image}`}
+                    src={`${API_URL}${c.image}`}
                     alt="course"
                     className="w-full max-w-[150px] h-auto object-cover rounded-lg shadow-sm"
                   />

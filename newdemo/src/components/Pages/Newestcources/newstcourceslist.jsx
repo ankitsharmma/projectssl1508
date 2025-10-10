@@ -11,6 +11,8 @@ const bgVariants = [
   "bg-[#2E3A59]",
 ];
 
+const  NewestsellingcourcesUrl = "auth/newestsellingcourses";
+
 const CourseCard = ({ course, index }) => {
   const bgColor = bgVariants[index % bgVariants.length];
 
@@ -35,7 +37,7 @@ const CourseCard = ({ course, index }) => {
       )}
 
       <img
-        src={`https://api.sslcloudservices.com/auth${course.image}`}
+        src={` ${NewestsellingcourcesUrl} ${course.image}`}
         alt={course.title}
         className="w-full h-48 object-cover"
       />
@@ -89,7 +91,7 @@ const CourseList = () => {
     AOS.init({ duration: 1000 });
 
     // ✅ Fetch API call
-    fetch("https://api.sslcloudservices.com/auth/newestsellingcourses", {
+    fetch( NewestsellingcourcesUrl, {
       method: "GET",
     })
       .then((res) => res.json())

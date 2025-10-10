@@ -16,13 +16,7 @@ export default function NewSellingCourses() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  // ✅ Dynamic Base URL (Auto Switch for Local / Live)
-  const BASE_URL =
-    window.location.hostname === "localhost"
-      ? "http://localhost:8080"
-      : "https://sslcloudservices.com";
-
-  const API_URL = `${BASE_URL}/auth/newestsellingcourses`;
+  const API_URL = "/auth//newestsellingcourses";
 
   // ✅ Fetch all courses
   const fetchCourses = async () => {
@@ -65,13 +59,13 @@ export default function NewSellingCourses() {
 
       let res;
       if (isEdit) {
-        // 🔹 Update
+        // 🔹 Update → PUT (no id in URL)
         res = await fetch(API_URL, {
           method: "PUT",
           body: dataToSend,
         });
       } else {
-        // 🔹 Create
+        // 🔹 Create → POST
         res = await fetch(API_URL, {
           method: "POST",
           body: dataToSend,
@@ -88,7 +82,7 @@ export default function NewSellingCourses() {
     }
   };
 
-  // ✅ Edit (open modal with course data)
+  // ✅ Edit (just open modal with data)
   const handleEdit = (course) => {
     setFormData({
       title: course.title,
@@ -100,7 +94,7 @@ export default function NewSellingCourses() {
       image: null,
       description: course.description,
     });
-    setPreview(course.image ? `${BASE_URL}${course.image}` : null);
+    setPreview(course.image ? `${API_URL}${course.image}` : null);
     setIsEdit(true);
     setIsOpen(true);
   };
@@ -149,7 +143,7 @@ export default function NewSellingCourses() {
           }}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
         >
-          Add Newest Course
+          Add newest  Course
         </button>
       </div>
 
@@ -185,7 +179,7 @@ export default function NewSellingCourses() {
               <div>
                 {c.image ? (
                   <img
-                    src={`${BASE_URL}${c.image}`}
+                    src={`${API_URL}${c.image}`}
                     alt="course"
                     className="w-full max-w-[150px] h-auto object-cover rounded-lg shadow-sm"
                   />
