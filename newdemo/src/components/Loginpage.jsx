@@ -11,7 +11,7 @@ import { useAuth } from "../Authcontext";
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth(); // ✅ useAuth context
-  const login_url= "auth/login"
+  
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -21,6 +21,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  // Set your backend login API URL here
+  const URL_Login = "/auth/login"; // Change to full URL if backend is on another domain
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +39,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch(`${login_url}`, {
+      const response = await fetch(`${URL_Login}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginInfo),

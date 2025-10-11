@@ -6,6 +6,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { Star } from "lucide-react";
 
 const BASE_URL = " /auth/instructor";
+   const IMAGE_BASE = "https://api.sslcloudservices.com";
 
 const ProfileSlider = () => {
   const [profiles, setProfiles] = useState([]);
@@ -22,7 +23,7 @@ const ProfileSlider = () => {
               ...p,
               image: p.image?.startsWith("http")
                 ? p.image
-                : `${BASE_URL}${p.image}`,
+                : `${IMAGE_BASE}${p.image}`,
             }))
           );
         }

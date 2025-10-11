@@ -17,7 +17,7 @@ const VideoUploadForm = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await fetch(url);
+        const res = await fetch( `${url}`);
         const data = await res.json();
         if (res.ok && data.success) {
           setVideos(data.videos);
@@ -36,7 +36,7 @@ const VideoUploadForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(url, {
+      const res = await fetch( `${url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
 export default function InstructorForm() {
-  const BASE_URL = "/auth/instructor";
+  // 🔹 Live backend ka base URL (no localhost)
+  const BASE_URL = "auth/instructor";
+  const IMAGE_BASE = "https://api.sslcloudservices.com";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -12,9 +14,9 @@ export default function InstructorForm() {
 
   const [preview, setPreview] = useState(null);
   const [instructors, setInstructors] = useState([]);
-  const [showForm, setShowForm] = useState(false); // modal toggle state
+  const [showForm, setShowForm] = useState(false);
 
-  // Form input change
+  // 🔹 Handle form input changes
   const handleChange = (e) => {
     if (e.target.name === "image") {
       const file = e.target.files[0];
@@ -25,10 +27,10 @@ export default function InstructorForm() {
     }
   };
 
-  // Fetch instructors
+  // 🔹 Fetch instructors from live API
   const fetchInstructors = async () => {
     try {
-      const res = await fetch(BASE_URL);
+      const res = await fetch( `${BASE_URL}`);
       const data = await res.json();
       setInstructors(data.data || []);
     } catch (err) {
@@ -36,32 +38,33 @@ export default function InstructorForm() {
     }
   };
 
-  // Submit instructor
+  // 🔹 Submit form (POST)
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const data = new FormData();
     data.append("name", formData.name);
     data.append("role", formData.role);
     data.append("rating", formData.rating);
     data.append("image", formData.image);
 
-    const res = await fetch(BASE_URL, { method: "POST", body: data });
-    const result = await res.json();
-    alert(result.message || "Instructor Added!");
-
-    setFormData({ name: "", role: "", rating: "", image: null });
-    setPreview(null);
-    setShowForm(false); // close modal after submit
-    fetchInstructors();
+    try {
+      const res = await fetch( `${BASE_URL}`, { method: "POST", body: data });
+      const result = await res.json();
+      alert(result.message || "Instructor Added!");
+      setFormData({ name: "", role: "", rating: "", image: null });
+      setPreview(null);
+      setShowForm(false);
+      fetchInstructors();
+    } catch (err) {
+      console.error("Error adding instructor:", err);
+    }
   };
 
-  // Delete instructor by name
+  // 🔹 Delete instructor
   const handleDelete = async (name) => {
     if (!window.confirm(`Are you sure you want to delete ${name}?`)) return;
-
     try {
-      const res = await fetch(BASE_URL, {
+      const res = await fetch(`${BASE_URL}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name }),
@@ -80,7 +83,7 @@ export default function InstructorForm() {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 px-4 py-6">
-      {/* Table Header with Add Button */}
+      {/* Header */}
       <div className="w-full max-w-4xl flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Instructor List</h2>
         <button
@@ -91,16 +94,14 @@ export default function InstructorForm() {
         </button>
       </div>
 
-      {/* Modal Form with Blur Background */}
+      {/* Modal */}
       {showForm && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setShowForm(false)}
           ></div>
 
-          {/* Modal */}
           <div className="relative bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl z-10">
             <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
               Add Instructor
@@ -216,7 +217,11 @@ export default function InstructorForm() {
                   <td className="border px-4 py-2 text-center">
                     {inst.image ? (
                       <img
-                        src={`http://localhost:8080${inst.image}`}
+                        src={
+                          inst.image.startsWith("http")
+                            ? inst.image
+                            : `${IMAGE_BASE}${inst.image}`
+                        }
                         alt={inst.name}
                         className="w-16 h-16 object-cover rounded-lg mx-auto"
                       />

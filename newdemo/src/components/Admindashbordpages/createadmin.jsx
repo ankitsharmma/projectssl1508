@@ -23,7 +23,7 @@ export default function AdminManager() {
   // ✅ Fetch all admins (GET)
   const fetchAdmins = async () => {
     try {     
-      const res = await fetch( adminuser_url, { method: "GET" });
+      const res = await fetch( `${adminuser_url}`, { method: "GET" });
       const data = await res.json();
       if (res.ok) {
         setAdmins(data.admins || []);
@@ -38,7 +38,7 @@ export default function AdminManager() {
   // ✅ Create new admin (POST)
   const createAdmin = async (adminData) => {
     try {
-      const res = await fetch(adminsignup_url, {
+      const res = await fetch( `${adminsignup_url}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(adminData),
@@ -58,7 +58,7 @@ export default function AdminManager() {
   // ✅ Update admin (PUT)
   const updateAdmin = async (adminData) => {
     try {
-      const res = await fetch( updateadmin_url, {
+      const res = await fetch(  ` ${updateadmin_url}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(adminData),
@@ -78,7 +78,7 @@ export default function AdminManager() {
   // ✅ Delete admin (DELETE)
   const deleteAdmin = async (email) => {
     try {
-      const res = await fetch( deleteadmin_url, {
+      const res = await fetch( `${deleteadmin_url}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

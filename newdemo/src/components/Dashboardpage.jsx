@@ -37,7 +37,7 @@ const VideoGallery = () => {
     const fetchFolders = async () => {
       setLoadingFolders(true);
       try {
-        const res = await fetch( folder_url);
+        const res = await fetch( ` ${folder_url}`);
         const data = await res.json();
         if (Array.isArray(data.folders)) setFolders(data.folders);
       } catch (error) {
@@ -53,7 +53,7 @@ const VideoGallery = () => {
     const fetchVideos = async () => {
       setLoadingVideos(true);
       try {
-        const res = await fetch( uplode_url);
+        const res = await fetch( ` ${uplode_url}`);
         const data = await res.json();
         if (Array.isArray(data)) setAllVideos(data);
         else if (Array.isArray(data.videos)) setAllVideos(data.videos);

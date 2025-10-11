@@ -34,7 +34,7 @@ function Studentdetailspage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(Url_GetUser);
+      const res = await fetch( `${Url_GetUser}`);
       const json = await res.json();
       setData(json.users || []);
     } catch (err) {
@@ -46,7 +46,7 @@ function Studentdetailspage() {
 
   const handleDelete = async (email) => {
     if (!window.confirm(`Are you sure you want to delete ${email}?`)) return;
-    await fetch(Url_DeleteUser, {
+    await fetch( `${Url_DeleteUser}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
@@ -68,7 +68,7 @@ function Studentdetailspage() {
   };
 
   const handleFormSubmit = async () => {
-    await fetch( Url_UpdateUser, {
+    await fetch( `${Url_UpdateUser}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -110,7 +110,7 @@ function Studentdetailspage() {
       return;
     }
 
-    await fetch(Url_Signup, {
+    await fetch(` ${Url_Signup}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(signupInfo),

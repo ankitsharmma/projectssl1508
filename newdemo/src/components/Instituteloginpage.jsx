@@ -36,7 +36,7 @@ const AdminLogin = () => {
     }
 
     try {
-      const response = await fetch( BASE_URL, {
+      const response = await fetch( `${BASE_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginInfo)

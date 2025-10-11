@@ -91,7 +91,7 @@ const CourseList = () => {
     AOS.init({ duration: 1000 });
 
     // ✅ Fetch API call
-    fetch( NewestsellingcourcesUrl, {
+    fetch( `${NewestsellingcourcesUrl}`, {
       method: "GET",
     })
       .then((res) => res.json())

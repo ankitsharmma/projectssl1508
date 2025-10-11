@@ -16,12 +16,12 @@ export default function NewSellingCourses() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const API_URL = "/auth//newestsellingcourses";
+  const API_URL = "/auth/newestsellingcourses";
 
   // ✅ Fetch all courses
   const fetchCourses = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(` ${API_URL}`);
       const data = await res.json();
       if (data && Array.isArray(data.data)) {
         setCourses(data.data);
@@ -60,13 +60,13 @@ export default function NewSellingCourses() {
       let res;
       if (isEdit) {
         // 🔹 Update → PUT (no id in URL)
-        res = await fetch(API_URL, {
+        res = await fetch(` ${API_URL}`, {
           method: "PUT",
           body: dataToSend,
         });
       } else {
         // 🔹 Create → POST
-        res = await fetch(API_URL, {
+        res = await fetch(` ${API_URL}`, {
           method: "POST",
           body: dataToSend,
         });
@@ -103,7 +103,7 @@ export default function NewSellingCourses() {
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch( `${API_URL}`, {
         method: "DELETE",
       });
 
