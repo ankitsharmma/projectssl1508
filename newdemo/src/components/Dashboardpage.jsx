@@ -25,8 +25,8 @@ const VideoGallery = () => {
   const [loadingFolders, setLoadingFolders] = useState(true);
   const [loadingVideos, setLoadingVideos] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const uplode_url = "auth/uploadvideo"
-  const  folder_url = "auth/folders"
+  const uplode_url = "https://api.sslcloudservices.com/auth/uploadvideo"
+  const  folder_url = "https://api.sslcloudservices.com/auth/folders"
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });

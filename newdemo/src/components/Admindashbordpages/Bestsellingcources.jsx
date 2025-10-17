@@ -16,7 +16,7 @@ export default function BestSellingCourses() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const API_URL = "/auth/bestsellingcourses";
+  const API_URL = "https://api.sslcloudservices.com/auth/bestsellingcourses";
 
   // ✅ Fetch all courses
   const fetchCourses = async () => {
@@ -179,7 +179,7 @@ export default function BestSellingCourses() {
               <div>
                 {c.image ? (
                   <img
-                    src={`${API_URL}${c.image}`}
+                    src={`https://api.sslcloudservices.com${c.image}`}
                     alt="course"
                     className="w-full max-w-[150px] h-auto object-cover rounded-lg shadow-sm"
                   />

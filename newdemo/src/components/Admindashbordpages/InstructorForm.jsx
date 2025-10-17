@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function InstructorForm() {
   // 🔹 Live backend ka base URL (no localhost)
-  const BASE_URL = "auth/instructor";
+  const BASE_URL = "https://api.sslcloudservices.com/auth/instructor";
   const IMAGE_BASE = "https://api.sslcloudservices.com";
 
   const [formData, setFormData] = useState({

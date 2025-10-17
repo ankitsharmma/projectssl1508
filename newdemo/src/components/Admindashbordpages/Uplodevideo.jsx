@@ -11,7 +11,7 @@ const VideoUploadForm = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
 
-  const url = "/auth/uploadvideo";
+  const url = "https://api.sslcloudservices.com/auth/uploadvideo";
 
   // Fetch all videos
   useEffect(() => {

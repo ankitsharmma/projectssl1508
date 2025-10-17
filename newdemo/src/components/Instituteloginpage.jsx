@@ -20,7 +20,7 @@ const AdminLogin = () => {
   });
 
   // ✅ Base API URL
-  const BASE_URL = " auth/Adminlogin";
+  const BASE_URL = " https://api.sslcloudservices.com/auth/Adminlogin";
 
   const handleChange = (e) => {
     const { name, value } = e.target;

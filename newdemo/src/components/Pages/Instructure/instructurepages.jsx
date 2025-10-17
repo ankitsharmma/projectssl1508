@@ -6,7 +6,7 @@ function Instructurepages() {
   return (
    <>
    
-   <Instructureheading/>
+   {/* <Instructureheading/> */}
    <ProfileSlider/>
    </>
   )

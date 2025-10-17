@@ -16,7 +16,7 @@ export default function NewSellingCourses() {
   const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const API_URL = "/auth/newestsellingcourses";
+  const API_URL = "https://api.sslcloudservices.com/auth/newestsellingcourses";
 
   // ✅ Fetch all courses
   const fetchCourses = async () => {

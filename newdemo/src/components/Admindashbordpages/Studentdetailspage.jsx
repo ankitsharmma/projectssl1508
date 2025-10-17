@@ -12,10 +12,10 @@ function Studentdetailspage() {
   const [formData, setFormData] = useState({});
 
   // Base API paths (using Vite proxy `/auth`)
-  const Url_GetUser = "/auth/user";
-  const Url_DeleteUser = "/auth/user/email";
-  const Url_UpdateUser = "/auth/user/email";
-  const Url_Signup = "/auth/signup";
+  const Url_GetUser = "https://api.sslcloudservices.com/auth/user";
+  const Url_DeleteUser = "https://api.sslcloudservices.com/auth/user/email";
+  const Url_UpdateUser = "https://api.sslcloudservices.com/auth/user/email";
+  const Url_Signup = "https://api.sslcloudservices.com/auth/signup";
 
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [signupInfo, setSignupInfo] = useState({

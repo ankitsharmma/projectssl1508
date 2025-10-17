@@ -75,10 +75,10 @@ export default function Footer() {
               <a href="#" className="p-2 rounded-full bg-white/10 hover:bg-blue-500 transition">
                 <Twitter size={18} />
               </a>
-              <a href="#" className="p-2 rounded-full bg-white/10 hover:bg-blue-600 transition">
+              <a href="http://www.linkedin.com/in/ssl-cloud-devops-679767389" className="p-2 rounded-full bg-white/10 hover:bg-blue-600 transition">
                 <Linkedin size={18} />
               </a>
-              <a href="#" className="p-2 rounded-full bg-white/10 hover:bg-pink-500 transition">
+              <a href="https://www.instagram.com/sslcloud_community/" className="p-2 rounded-full bg-white/10 hover:bg-pink-500 transition">
                 <Instagram size={18} />
               </a>
               <a href="#" className="p-2 rounded-full bg-white/10 hover:bg-blue-700 transition">

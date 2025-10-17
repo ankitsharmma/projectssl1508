@@ -3,10 +3,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminManager() {
-  const  adminuser_url= "auth/Adminuser"
-  const adminsignup_url= "auth/Adminsignup"
-  const updateadmin_url= "auth/Adminuser/email"
-  const deleteadmin_url= "auth/Adminuser/email"
+  const  adminuser_url= "https://api.sslcloudservices.com/auth/Adminuser"
+  const adminsignup_url= "https://api.sslcloudservices.com/auth/Adminsignup"
+  const updateadmin_url= "https://api.sslcloudservices.com/auth/Adminuser/email"
+  const deleteadmin_url= "https://api.sslcloudservices.com/auth/Adminuser/email"
  
 
 

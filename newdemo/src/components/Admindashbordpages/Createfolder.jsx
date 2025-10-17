@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 
  // Vite proxy will forward this to https://api.sslcloudservices.com/auth
 
-const Url_getfolders = "/auth/folders";
-const Url_createfolder = "/auth/foldercreate";
-const Url_deletefolder = "/auth/folders";
-const Url_updatefolder = "/auth/folders";
+const Url_getfolders = "https://api.sslcloudservices.com/auth/folders";
+const Url_createfolder = "https://api.sslcloudservices.com/auth/foldercreate";
+const Url_deletefolder = "https://api.sslcloudservices.com/auth/folders";
+const Url_updatefolder = "https://api.sslcloudservices.com/auth/folders";
 
 const FolderManager = () => {
   const [folderName, setFolderName] = useState("");
